@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <img src="{{ post.image_url }}" class="img-fluid rounded" alt="{{ post.title }}">
+            <div>
+                <h2 class="mt-4">{{ post.title }}</h2>
+                <h5 class="mb-2 text-muted">{{ post.category }}</h5>
+                <p style="text-align: justify;">{{ post.content }}</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

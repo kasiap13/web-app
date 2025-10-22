@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Guinea Pig{% endblock %}
+
+{% block content %}
+<h2>Add a New Guinea Pig</h2>
+<form method="post">
+  {% csrf_token %}
+  {% crispy form %}
+</form>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load auth_extras %}
+{% load crispy_forms_tags %}
+
+{% block title %}Our Guinea Pigs{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Our Guinea Pigs</h2>
+    {% if user|has_group:"Manager" %}
+    <a href="{% url 'products:guinea-pig-add' %}" class="btn btn-primary">Add New Guinea Pig</a>
+    {% endif %}
+</div>
+{% crispy form %}
+
+<script>
+    const errors = {{ form.errors.as_json| safe }};
+    if (Object.keys(errors).length > 0) {
+        let errorMessages = [];
+        for (const field in errors) {
+            errors[field].forEach(error => {
+                errorMessages.push(error.message);
+            });
+        }
+        alert(errorMessages.join('\n'));
+    }
+</script>
+
+<div class="row">
+    {% for pig in guinea_pigs %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="ratio ratio-4x3">
+                <img src="{{ pig.image_url }}" class="card-img-top object-fit-cover" alt="{{ pig.name }}">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ pig.name }}</h5>
+                <p class="card-text">{{ pig.price }}zł</p>
+                {% if user|has_group:"Manager" %}
+                <a href="{% url 'products:guinea-pig-edit' pig.pk %}" class="btn btn-secondary btn-sm">Edit</a>
+                <a href="{% url 'products:guinea-pig-delete' pig.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No guinea pigs available at the moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

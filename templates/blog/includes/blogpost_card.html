@@ -1,0 +1,17 @@
+{% load auth_extras %}
+<div class="col-md-6 mb-4">
+  <div class="card">
+    <div class="ratio ratio-4x3">
+      <img src="{{ post.image_url }}" class="card-img-top object-fit-cover" alt="{{ post.title }}">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ post.title }}</h5>
+      <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+      <a href="{% url 'blog:blog-post-detail' post.pk %}" class="btn btn-primary">Read More</a>
+      {% if user|has_group:"Manager" %}
+      <a href="{% url 'blog:blog-post-edit' post.pk %}" class="btn btn-secondary btn-sm">Edit</a>
+      <a href="{% url 'blog:blog-post-delete' post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
