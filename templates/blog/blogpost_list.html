@@ -14,8 +14,7 @@
       <select id="category-select" name="category" class="form-select">
         <option value="">All Categories</option>
         {% for category in categories %}
-        <option value="{{ category.id }}" {% if request.GET.category==category.id|stringformat:"s" %}selected{% endif
-          %}>{{ category.name }}</option>
+        <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
         {% endfor %}
       </select>
     </form>
@@ -27,7 +26,7 @@
   {% empty %}
   <p>No blog posts yet.</p>
   {% endfor %}
-</div>
+</div>`
 {% endblock %}
 
 {% block extra_js %}
